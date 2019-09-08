@@ -7,7 +7,7 @@ var multer=require('multer');
 var storage = multer.diskStorage({
     //目录路径
     destination: function (req, file, cb) {
-        cb(null, '../public/uploads')
+        cb(null, './public/uploads')
     },
     //文件名
     filename: function (req, file, cb) {
@@ -25,7 +25,7 @@ router.post('/add',auth.checkLogin,upload.single('poster'),function(req,res,next
     console.log(req.file);
     var article=req.body;
     if(req.file)
-    article.poster='/uploads'+req.file.filename;
+    article.poster='/uploads'+'/'+req.file.filename;
    //把当前登录用户的ID赋给user;
    article.user=req.session.user._id;
    models.Article.create(article,function(err,doc){
